@@ -38,7 +38,7 @@
 
 @interface CDVWKWebViewEngine ()
 
-@property (nonatomic, strong, readwrite) UIView* engineWebView;
+@property (nonatomic, strong, readwrite) WKWebView* engineWebView;
 @property (nonatomic, strong, readwrite) id <WKUIDelegate> uiDelegate;
 @property (nonatomic, weak) id <WKScriptMessageHandler> weakScriptMessageHandler;
 
@@ -99,6 +99,7 @@
     WKWebView* wkWebView = [[WKWebView alloc] initWithFrame:self.engineWebView.frame configuration:configuration];
     wkWebView.UIDelegate = self.uiDelegate;
     self.engineWebView = wkWebView;
+    self.engineWebView.allowsLinkPreview = false;
 
     if (IsAtLeastiOSVersion(@"9.0") && [self.viewController isKindOfClass:[CDVViewController class]]) {
         wkWebView.customUserAgent = ((CDVViewController*) self.viewController).userAgent;
