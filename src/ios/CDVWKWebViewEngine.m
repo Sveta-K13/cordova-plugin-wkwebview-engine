@@ -440,6 +440,13 @@ static void * KVOContext = &KVOContext;
             }
         }
     }
+    
+    if (!navigationAction.targetFrame || [url.scheme isEqualToString:@"tel"] || [url.scheme isEqualToString:@"mailto"] || [url.scheme isEqualToString:@"sms"]) {
+        UIApplication *app = [UIApplication sharedApplication];
+        if ([app canOpenURL:url]) {
+            [app openURL:url];
+        }
+    }    
 
     if (anyPluginsResponded) {
         return decisionHandler(shouldAllowRequest);
